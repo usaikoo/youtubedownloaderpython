@@ -5,7 +5,7 @@ import os
 app = Flask(__name__)
 
 def file_path():
-    home = os.path.expanduser('.')
+    home = os.getcwd()
     download_path = os.path.join(home, 'Videos')
     return download_path
 def filelist():
@@ -51,4 +51,4 @@ def index():
     else:
         return render_template("index.html")
 if __name__ == '__main__':
-    app.run(debug=True, port=5000)
+    app.run(debug=True, port=5000, host='0.0.0.0')
