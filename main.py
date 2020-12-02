@@ -42,7 +42,6 @@ def index():
         except:
             return render_template('index.html',error="Something went Wrong!!")
   
-        # return render_template('index.html',views=views,length=length,rating=rating)
     else:
         return render_template("index.html")
 if __name__ == '__main__':
