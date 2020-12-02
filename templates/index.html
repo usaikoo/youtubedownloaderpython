@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Bare - Start Bootstrap Template</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="../static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+    <div class="container">
+      <a class="navbar-brand" href="/">Python Youtube Downloader</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="#">Git</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  
+  {% if error%}
+  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <strong>!</strong> {{ error }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+{% endif %}
+
+{% if success%}
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+  <strong>!</strong> {{ success }}
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+{% endif %}
+  <!-- Page Content -->
+  <div class="container">
+     
+    <div class="row">
+      <div class="col-lg-12 text-center">
+        <h1 class="mt-5">Python Youtube Downloader </h1>
+        <p class="lead">Youtube Downloader developed by Sai Ko. You can get the source code here {{ rating }} </p>
+
+      </div>
+    </div>
+    <div class="row h-100">
+        <div class=" col-sm-12 my-auto">
+            <form>
+                <div class="input-group mb-3 mx-lg-5">
+                    <input type="text" id="youtubeurl" name="youtubeurl" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                    <div class="input-group-append">
+                      <button type="button" id="submit" class="btn btn-outline-primary" data-toggle="button"  id="submit">Download</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+      
+    </div>
+  </div>
+ {% if success %}
+ <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">View</th>
+      <th scope="col">Length</th>
+      <th scope="col">Rating</th>
+      <th scope="col">Downloaded Folder</th>
+
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>{{ views }}</td>
+      <td>{{ length }}</td>
+      <td>{{ rating }}</td>
+      <td><a href="file://{{path}}">Open</a></td>
+    </tr>
+  </tbody>
+</table>
+
+ {% endif %}
+  <!-- Bootstrap core JavaScript -->
+  <!-- <script src="../static/vendor/jquery/jquery.slim.min.js"></script> -->
+  <script src="../static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+ 
+ var formData = new FormData(); 
+   $(document).on('click', '#submit', function(e) {
+     formData.append('youtubeurl',  $('input[name=youtubeurl]').val())
+     formData.append('action', '/')
+     formData.append('csrfmiddlewaretoken', '{{ csrf_token }}')
+       $.ajax({
+           type: 'POST',
+           url: '/',
+           data: formData,
+           cache: false,
+           processData: false,
+           contentType: false,
+           enctype: 'multipart/form-data',
+           success: function (response){
+            document.close();
+            // alert(response)
+            document.write(response);
+
+           
+
+           },
+           error: function(xhr, errmsg, err) {
+               console.log(xhr.status + ":" + xhr.responseText)
+           }
+       }) 
+      
+   })
+
+  </script>
+</body>
+
+</html>
