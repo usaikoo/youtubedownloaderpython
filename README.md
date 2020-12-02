@@ -3,8 +3,10 @@
 ## In Docker
 
 ```
-docker run --rm -d -v {your-download-folder-path}:/app/Videos pyaephyohein/ --network=host youtubedownloadpython:latest
+docker run --rm -d -v {your-download-folder-path}:/app/Videos pyaephyohein/ --network=host pyaephyohein/youtubedownloadpython:latest
 ```
+
+## Run
 http://{your-ip-address}:5000
 
 After download, check your videos in {your-download-folder-path}
