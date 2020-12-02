@@ -5,7 +5,7 @@ import os
 app = Flask(__name__)
 
 def file_path():
-    home = os.getcwd()
+    home = os.path.expanduser('~')
     download_path = os.path.join(home, 'Downloads/Video')
     return download_path
 
