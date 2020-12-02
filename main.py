@@ -5,12 +5,17 @@ import os
 app = Flask(__name__)
 
 def file_path():
-    home = os.path.expanduser('~')
-    download_path = os.path.join(home, 'Downloads/Video')
+    home = os.path.expanduser('.')
+    download_path = os.path.join(home, 'Videos')
     return download_path
+def filelist():
+    fl = os.system(f"ls {file_path()}")
+    return fl
 
 @app.route('/',methods=['POST','GET'])
 def index():
+    print(file_path())
+    print(filelist())
     if request.method == "POST":
         # # ask for the link from user
         youtubeurl = request.form.get('youtubeurl') 
@@ -39,8 +44,9 @@ def index():
             # return'' response
             return render_template('index.html',views=views,length=length,rating=rating, success= data,path=path)
            
-        except:
-            return render_template('index.html',error="Something went Wrong!!")
+        except Exception as e:
+            print(e)
+            return render_template('index.html',error=e)
   
     else:
         return render_template("index.html")
